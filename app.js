@@ -1,5 +1,12 @@
-const { log } = require("console");
-const _ = require("lodash")
-const items = [1, [2, [3 , [4]]]]
-const newItems = _.flattenDeep(items);
-log(newItems)
+const EventEmitter = require("events");
+
+const customEmitter = new EventEmitter()
+customEmitter.on('respnoe' , () =>{
+    console.log("data recieved");
+})
+
+customEmitter.on('respnoe' , (id , name) =>{
+    console.log("data recieved" + name +" with id " + id);
+})
+
+customEmitter.emit('respnoe' , "rong" , 24)

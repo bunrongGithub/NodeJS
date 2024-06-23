@@ -1,12 +1,23 @@
-const EventEmitter = require("events");
+const http = require("http");
+const {readFileSync} = require("fs")
 
-const customEmitter = new EventEmitter()
-customEmitter.on('respnoe' , () =>{
-    console.log("data recieved");
+// get all files
+const homePage = readFileSync("nav/index.html")
+
+
+
+
+const server = http.createServer( (req , res) => {
+
+    if(req.url === '/'){
+        res.writeHead(200 , {'content-type': 'text/html'})
+        res.write(homePage)
+        res.end()
+    }else{
+        res.end("opp!")
+    }
 })
 
-customEmitter.on('respnoe' , (id , name) =>{
-    console.log("data recieved" + name +" with id " + id);
-})
 
-customEmitter.emit('respnoe' , "rong" , 24)
+
+server.listen(5000)
